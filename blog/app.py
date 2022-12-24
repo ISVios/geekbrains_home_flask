@@ -15,7 +15,6 @@ app.register_blueprint(article_app, url_prefix="/articles")
 def index():
     return render_template("index.html")
 
-
 @app.route("/power")
 def power():
     x = request.args.get("x", "")
