@@ -1,13 +1,19 @@
-from flask import Flask, request
+from flask import Flask, render_template, request
 from werkzeug.exceptions import BadRequest
 
+
+from blog.views.user import users_app
+from blog.views.article import article_app
+
 app: Flask = Flask(__name__)
+
+app.register_blueprint(users_app, url_prefix="/users")
+app.register_blueprint(article_app, url_prefix="/articles")
 
 
 @app.route("/")
 def index():
-    return "Hello world", 200
-
+    return render_template("index.html")
 
 @app.route("/power")
 def power():
