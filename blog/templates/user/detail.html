@@ -1,11 +1,10 @@
 {% extends "base.html" %}
-
-{% block tilte %} {{ user }} {% endblock tilte %}
-
+{% block tilte %}
+  {{ user }}
+{% endblock tilte %}
 {% block content %}
   <h1>{{ user.username }}</h1>
 {% endblock content %}
-
 {% block footer %}
   <a href="{{ url_for('users_app.list') }}">Back to list</a>
 {% endblock footer %}

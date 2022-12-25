@@ -5,16 +5,23 @@ from werkzeug.exceptions import BadRequest
 from blog.models import db, UserModel
 from blog.views.user import users_app
 from blog.views.article import article_app
+from blog.views.auth import auth_app, login_manager
 
 app: Flask = Flask(__name__)
 
 
 # __CONFIG__
+app.config["SECRET_KEY"] = "^8wg6yjji4@2ur^41jq6g9hw%4q(77&jgc#zmzlh%v_959lf6)"
+
 
 # __DB__
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/blog.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+
+# __INIT__
 db.init_app(app)
+login_manager.init_app(app)
 
 # __CMD__
 @app.cli.command("init-db")
@@ -46,6 +53,7 @@ def full_db():
 # __BLUEPRINT__
 app.register_blueprint(users_app, url_prefix="/users")
 app.register_blueprint(article_app, url_prefix="/articles")
+app.register_blueprint(auth_app, url_prefix="/auth")
 
 
 # __ROUTE__
