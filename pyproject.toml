@@ -10,6 +10,7 @@ packages = [{include = "geekbrains_home_flask"}]
 [tool.poetry.dependencies]
 python = "3.10.8"
 Flask = "2.2.2"
+flask-sqlalchemy = "3.0.2"
 
 [tool.poetry.group.dev.dependencies]
 pyvim = "3.0.3"
