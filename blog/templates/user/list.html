@@ -5,11 +5,14 @@
 {% block content %}
   <div>
     <ul>
-      {% for user_index in users %}
+      {% for user in users %}
         <li>
-          <a href="{{ url_for('users_app.detail', user_index=user_index)}}">
-            {{ users[user_index] }}
+          <a href="{{ url_for('users_app.detail', user_index=user.id)}}">
+            {{ user.username }}
           </a>
+          {% if user.is_staff %} -
+            <span class="badge bg-secondary" >staff</span>
+          {% endif %}
         </li>
       {% endfor %}
     </ul>
