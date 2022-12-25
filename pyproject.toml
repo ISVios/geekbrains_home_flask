@@ -11,7 +11,7 @@ packages = [{include = "geekbrains_home_flask"}]
 python = "3.10.8"
 Flask = "2.2.2"
 flask-sqlalchemy = "3.0.2"
-flask-login = "0.5.0"
+flask-login = "0.6.2"
 
 [tool.poetry.group.dev.dependencies]
 pyvim = "3.0.3"
@@ -20,6 +20,7 @@ black = "22.12.0"
 neovim = "0.3.1"
 aiohttp = "3.8.3"
 jedi = "0.18.2"
+ipdb = "0.13.11"
 
 [build-system]
 requires = ["poetry-core"]
