@@ -3,17 +3,17 @@
 {% block title %} User List {% endblock title %}
 
 {% block content %}
-<div>
-  <ul>
-    {% for user_index in users %}
-    <li>
-	<a href="{{ url_for('users_app.detail', user_index=user_index)}}">
-	{{ users[user_index] }}
-	</a>
-    </li>
-    {% endfor %}
-  </ul>
-</div>
+  <div>
+    <ul>
+      {% for user_index in users %}
+        <li>
+          <a href="{{ url_for('users_app.detail', user_index=user_index)}}">
+            {{ users[user_index] }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endblock content %}
 
 {% block footer %}{% endblock footer %}
