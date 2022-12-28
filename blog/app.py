@@ -27,7 +27,7 @@ db.init_app(app)
 login_manager.init_app(app)
 
 # __MIGRATE__
-migrate = Migrate(app, db)
+migrate = Migrate(app, db, compare_type=True)
 
 # __CMD__
 @app.cli.command("init-db")
