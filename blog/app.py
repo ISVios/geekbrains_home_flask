@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template
 from werkzeug.exceptions import BadRequest
 
@@ -11,12 +13,13 @@ app: Flask = Flask(__name__)
 
 
 # __CONFIG__
-app.config["SECRET_KEY"] = "^8wg6yjji4@2ur^41jq6g9hw%4q(77&jgc#zmzlh%v_959lf6)"
-
+# app.config["SECRET_KEY"] = "^8wg6yjji4@2ur^41jq6g9hw%4q(77&jgc#zmzlh%v_959lf6)"
+cfg_name = os.environ.get("CONFIG_NAME") or "ProductionConfig"
+app.config.from_object(f"blog.config.{cfg_name}")
 
 # __DB__
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/blog.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/blog.db"
+# app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 
 # __INIT__
