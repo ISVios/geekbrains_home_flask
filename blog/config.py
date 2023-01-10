@@ -1,4 +1,8 @@
 import os
+import logging
+
+# __GLOBAL_Logger_Level__
+# logging.basicConfig(level=logging.WARN)
 
 
 class BaseConfig(object):

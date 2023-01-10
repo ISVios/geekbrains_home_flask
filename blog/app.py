@@ -1,4 +1,5 @@
 import os
+import logging
 
 from flask import Flask, render_template
 from werkzeug.exceptions import BadRequest
@@ -11,6 +12,10 @@ from blog.views.article import article_app
 from blog.views.auth import auth_app, login_manager
 
 app: Flask = Flask(__name__)
+
+# __Logger__
+command_logger = logging.getLogger("command")
+command_logger.setLevel("INFO")
 
 # __CONFIG__
 cfg_name = os.environ.get("CONFIG_NAME") or "ProductionConfig"
@@ -28,13 +33,13 @@ migrate = Migrate(app, db, compare_type=True)
 def init_db():
     """Init empty db"""
     db.create_all()
-    print("init db. Done.")
+    command_logger.info("init db. Done.")
 
 
 @app.cli.command("full-db")
 def full_db():
     """
-    Crete 3 users ->
+    Create 3 users ->
     user1
     user2
     root (superuser)
@@ -47,7 +52,7 @@ def full_db():
     db.session.add(user1)
     db.session.add(user2)
     db.session.commit()
-    print("Created ->\nuser1\t\nuser2\t\nroot\t(superuse)")
+    command_logger.info("Created ->\nuser1\t\nuser2\t\nroot\t(superuse)")
 
 
 # __BLUEPRINT__
