@@ -31,30 +31,22 @@ login_manager.init_app(app)
 migrate = Migrate(app, db, compare_type=True)
 
 # __CMD__
-@app.cli.command("init-db")
-def init_db():
-    """Init empty db"""
-    db.create_all()
-    command_logger.info("init db. Done.")
 
 
-@app.cli.command("full-db")
-def full_db():
+@app.cli.command("create-superuser")
+def create_superuser():
     """
-    Create 3 users ->
-    user1
-    user2
-    root (superuser)
+    create superuser root:toor
+    password get from env ROOT_PASSWORD if env no found user 'toor'
     """
+    from blog.models import UserModel
+
     root = UserModel(username="root", is_staff=True)
-    user1 = UserModel(username="user1")
-    user2 = UserModel(username="user2")
+    root.password = os.environ.get("ROOT_PASSWORD") or "toor"
 
     db.session.add(root)
-    db.session.add(user1)
-    db.session.add(user2)
     db.session.commit()
-    command_logger.info("Created ->\nuser1\t\nuser2\t\nroot\t(superuse)")
+    logging.info("create superuser: " + root)
 
 
 # __BLUEPRINT__
