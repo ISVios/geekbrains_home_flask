@@ -14,7 +14,9 @@ class UserModel(db.Model, UserMixin):
     last_name = Column(
         String(160), unique=False, nullable=False, default="", server_default=""
     )
-    email = Column(String(255), nullable=False, default="", server_default="")
+    email = Column(
+        String(255), unique=True, nullable=False, default="", server_default=""
+    )
     _password = Column(LargeBinary, nullable=False)
     is_staff = Column(Boolean, nullable=False, default=False)
 
