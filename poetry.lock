@@ -491,6 +491,26 @@ Flask = ">=2.2"
 SQLAlchemy = ">=1.4.18"
 
 [[package]]
+name = "flask-wtf"
+version = "1.1.0"
+description = "Form rendering, validation, and CSRF protection for Flask with WTForms."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "Flask-WTF-1.1.0.tar.gz", hash = "sha256:10fd267a41b6dee4f433ec8d6507d4cce4f1d71700280cf654a7cdbae6408d47"},
+    {file = "Flask_WTF-1.1.0-py3-none-any.whl", hash = "sha256:b37451583d41aa40678eeb28d81023d66ce239693c6c35fc57b989ef22053e98"},
+]
+
+[package.dependencies]
+Flask = "*"
+itsdangerous = "*"
+WTForms = "*"
+
+[package.extras]
+email = ["email-validator"]
+
+[[package]]
 name = "frozenlist"
 version = "1.3.3"
 description = "A list-like structure which implements collections.abc.MutableSequence"
@@ -1400,6 +1420,24 @@ files = [
 ]
 
 [[package]]
+name = "wtforms"
+version = "3.0.1"
+description = "Form validation and rendering for Python web development."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "WTForms-3.0.1-py3-none-any.whl", hash = "sha256:837f2f0e0ca79481b92884962b914eba4e72b7a2daaf1f939c890ed0124b834b"},
+    {file = "WTForms-3.0.1.tar.gz", hash = "sha256:6b351bbb12dd58af57ffef05bc78425d08d1914e0fd68ee14143b7ade023c5bc"},
+]
+
+[package.dependencies]
+MarkupSafe = "*"
+
+[package.extras]
+email = ["email-validator"]
+
+[[package]]
 name = "yarl"
 version = "1.8.2"
 description = "Yet another URL library"
@@ -1490,4 +1528,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "3.10.8"
-content-hash = "09ed16e5fd43e4711ef8e43737ae6449f4dd644bf35395ec754b83066beb47c3"
+content-hash = "b9d334ebcf0015b48eead984f0cc2067fb5adf45852c966e6c39c12c6aadc2a9"
