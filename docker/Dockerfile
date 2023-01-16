@@ -17,8 +17,6 @@ RUN poetry install --without=dev --no-root
 
 COPY wsgi.py wsgi.py
 
-COPY blog ./blog
-
 EXPOSE 5000
 
 COPY docker/entrypoint.sh .
