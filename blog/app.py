@@ -6,6 +6,7 @@ from werkzeug.exceptions import BadRequest
 
 from flask_migrate import Migrate
 
+from blog.security import flask_bcrypt
 from blog.models import db, UserModel
 from blog.views.user import users_app
 from blog.views.article import article_app
@@ -22,6 +23,7 @@ cfg_name = os.environ.get("CONFIG_NAME") or "ProductionConfig"
 app.config.from_object(f"blog.config.{cfg_name}")
 
 # __INIT__
+flask_bcrypt.init_app(app)
 db.init_app(app)
 login_manager.init_app(app)
 
