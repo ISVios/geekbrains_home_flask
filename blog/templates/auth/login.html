@@ -1,18 +1,15 @@
 {% extends "base.html" %}
+{% from "macro/formhelpers.html" import render_field %}
 {% block title %}
   Login as
 {% endblock title %}
 {% block content %}
-  <h1>Login as user:</h1>
+  <h1>Login as</h1>
   {% if error %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endif %}
   <form method="post">
-    <label for="input-username">Login as (username):</label>
-    <input id="input-username"
-           type="text"
-           name="username"
-           placeholder="guest"
-           required/>
-    <button type="submit">Login</button>
+    {{ form.csrf_token }}
+    {% for field in ["username", "password"] %}{{ render_field(form[field])}}{% endfor %}
+    <div>{{ form.submit(class="btn btn-primary btn-lg")}}</div>
   </form>
 {% endblock content %}
 {% block footer %}

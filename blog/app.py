@@ -43,10 +43,10 @@ def create_superuser():
 
     root = UserModel(username="root", is_staff=True)
     root.password = os.environ.get("ROOT_PASSWORD") or "toor"
-
     db.session.add(root)
+
     db.session.commit()
-    logging.info("create superuser: " + root)
+    logging.info(f"create superuser: {root}")
 
 
 # __BLUEPRINT__

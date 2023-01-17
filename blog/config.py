@@ -2,7 +2,7 @@ import os
 import logging
 
 # __GLOBAL_Logger_Level__
-# logging.basicConfig(level=logging.WARN)
+logging.basicConfig(level=os.environ.get("LOGGER_LEVEL", None))
 
 
 class BaseConfig(object):

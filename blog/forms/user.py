@@ -13,7 +13,7 @@ class UserBaseForm(FlaskForm):
             validators.Email(),
             validators.Length(min=6, max=200),
         ],
-        filters=[lambda data: data and data.lowers()],
+        filters=[lambda data: data and data.lower()],
     )
 
 
@@ -27,3 +27,9 @@ class RegistrationForm(UserBaseForm):
     )
     confirm = PasswordField("Repeat password")
     submit = SubmitField("Register")
+
+
+class LoginForm(FlaskForm):
+    username = StringField("Username", [validators.DataRequired()])
+    password = PasswordField("Password", [validators.DataRequired()])
+    submit = SubmitField("Login")

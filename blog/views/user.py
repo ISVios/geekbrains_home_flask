@@ -29,5 +29,5 @@ def user_profile():
         return redirect(url_for("auth_app.login"))
     user = current_user
     if user is None:
-        raise NotFound(f"You Profile no found.")
+        raise NotFound(f"You Proffile no found.")
     return render_template("user/profile.html", user=user)
