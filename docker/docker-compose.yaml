@@ -8,6 +8,7 @@ services:
     environment:
       SQLALCHEMY_DATABASE_URI: postgresql://user:password@pg:5432/blog
       CONFIG_NAME: DevConfig
+      LOGGER_LEVEL: INFO
     volumes:
     - ./blog:/app/blog
     - ./migrations:/app/migrations

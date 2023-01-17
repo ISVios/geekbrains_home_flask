@@ -1,3 +1,12 @@
 #!/bin/bash
 
+[[ -f run.sh ]] && source ./run.sh
+
+if [[ ! -f .first_run ]] ; then
+  # add wait db
+  poetry run flask db upgrade
+  poetry run flask create-superuser
+  touch .first_run
+fi
+
 poetry run python ./wsgi.py
