@@ -11,6 +11,7 @@ from blog.models import db, UserModel
 from blog.views.user import users_app
 from blog.views.article import article_app
 from blog.views.auth import auth_app, login_manager
+from blog.views.author import author_app
 
 app: Flask = Flask(__name__)
 
@@ -31,8 +32,6 @@ login_manager.init_app(app)
 migrate = Migrate(app, db, compare_type=True)
 
 # __CMD__
-
-
 @app.cli.command("create-superuser")
 def create_superuser():
     """
@@ -53,6 +52,7 @@ def create_superuser():
 app.register_blueprint(users_app, url_prefix="/users")
 app.register_blueprint(article_app, url_prefix="/articles")
 app.register_blueprint(auth_app, url_prefix="/auth")
+app.register_blueprint(author_app, url_prefix="/authors")
 
 
 # __ROUTE__
