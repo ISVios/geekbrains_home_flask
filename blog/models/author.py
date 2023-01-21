@@ -8,3 +8,4 @@ class AuthorModel(db.Model):
     user_id = Column(Integer, ForeignKey("user_model.id"), nullable=False)
 
     user = relationship("UserModel", back_populates="author")
+    article = relationship("ArticleModel", back_populates="author")
