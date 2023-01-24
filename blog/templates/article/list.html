@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block title %}
-  Articles list
+    Articles list
 {% endblock title %}
 {% block content %}
-  <h1>Articles</h1>
-  <div>
-    <ul>
-      {% for title in articles %}<li>{{ title }}</li>{% endfor %}
-    </ul>
-  </div>
+    <h1>Articles</h1>
+    <div>
+        <ul>
+            {% for title in articles %}<li>{{ title }}</li>{% endfor %}
+        </ul>
+    </div>
 {% endblock content %}
 {% block footer %}
 {% endblock footer %}

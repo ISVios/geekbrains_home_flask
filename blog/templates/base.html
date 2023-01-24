@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% include "css_include.html" %}
-    <title>
-      {% block title %}
-        __TITLE__
-      {% endblock title %}
-    </title>
-    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
-  </head>
-  <body>
-    {% block nav %}
-      {% include "navigate.html" %}
-    {% endblock nav %}
-    {% block content %}
-      __CONTENT__
-    {% endblock content %}
-    {% block footer %}
-      __FOOTER__
-    {% endblock footer %}
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {% include "css_include.html" %}
+        <title>
+            {% block title %}
+                __TITLE__
+            {% endblock title %}
+        </title>
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    </head>
+    <body>
+        {% block nav %}
+            {% include "navigate.html" %}
+        {% endblock nav %}
+        {% block content %}
+            __CONTENT__
+        {% endblock content %}
+        {% block footer %}
+            __FOOTER__
+        {% endblock footer %}
+    </body>
 </html>
