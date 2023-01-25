@@ -1,17 +1,16 @@
-import os
 import logging
+import os
 
 from flask import Flask, render_template
+from flask_migrate import Migrate
 from werkzeug.exceptions import BadRequest
 
-from flask_migrate import Migrate
-
+from blog.models import UserModel, db
 from blog.security import flask_bcrypt
-from blog.models import db, UserModel
-from blog.views.user import users_app
 from blog.views.article import article_app
 from blog.views.auth import auth_app, login_manager
 from blog.views.author import author_app
+from blog.views.user import users_app
 
 app: Flask = Flask(__name__)
 
@@ -46,6 +45,32 @@ def create_superuser():
 
     db.session.commit()
     logging.info(f"create superuser: {root}")
+
+
+@app.cli.command("create-tag")
+def create_tag():
+    """
+    gen a common article tags
+    """
+    from blog.models import TagModel
+
+    tag_list = [
+        "flask",
+        "django",
+        "python",
+        "sqlalchemy",
+        "news",
+        "haskell",
+        "rust",
+        "vim",
+        "neovim",
+        "nim",
+    ]
+    for name in tag_list:
+        tag = TagModel(name=name)
+        db.session.add(tag)
+    db.session.commit()
+    logging.debug(f"{tag_list} created")
 
 
 # __BLUEPRINT__
