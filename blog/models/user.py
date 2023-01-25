@@ -22,7 +22,7 @@ class UserModel(db.Model, UserMixin):
     _password = Column(LargeBinary, nullable=False)
     is_staff = Column(Boolean, nullable=False, default=False)
 
-    author = relationship("AuthorModel", back_populates="user")
+    author = relationship("AuthorModel", uselist=False, back_populates="user")
 
     @property
     def password(self):

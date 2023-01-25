@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}
+    Article #{{ article.id }} {{ article.title }}
+{% endblock title %}
+{% block content %}
+    <h1>{{ article.title }}</h1>
+    <div>
+        <p>{{ article.body }}</p>
+        <div>Published {{ article.dt_created }}</div>
+        <div>by {{ article.author.user.username }}</div>
+    </div>
+{% endblock content %}
+{% block footer %}
+{% endblock footer %}
