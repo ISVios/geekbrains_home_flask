@@ -15,4 +15,3 @@ while true; do
   poetry run python ./wsgi.py
   sleep 1m
 done
-

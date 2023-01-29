@@ -1,5 +1,6 @@
 import logging
 import os
+import logging
 
 from flask import Flask, render_template
 from flask_migrate import Migrate
@@ -12,6 +13,7 @@ from blog.views.auth import auth_app, login_manager
 from blog.views.author import author_app
 from blog.views.user import users_app
 from blog.admin import admin
+
 
 app: Flask = Flask(__name__)
 

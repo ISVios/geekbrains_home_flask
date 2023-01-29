@@ -14,5 +14,6 @@ class AuthorModel(db.Model):
     def __str__(self) -> str:
         return str(self.user.username)
 
+
     def __repr__(self):
         return f"<author #{self.id} {self.user.username!r}>"

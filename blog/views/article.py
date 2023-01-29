@@ -1,5 +1,4 @@
 import logging
-
 from flask import Blueprint, current_app, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 from sqlalchemy import select
@@ -9,6 +8,7 @@ from werkzeug.exceptions import NotFound
 
 from blog.forms.article import CreateArticleForm
 from blog.models import db, ArticleModel, AuthorModel, TagModel
+
 
 article_app = Blueprint("article_app", __name__)
 

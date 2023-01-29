@@ -24,6 +24,7 @@ class UserModel(db.Model, UserMixin):
 
     author = relationship("AuthorModel", uselist=False, back_populates="user")
 
+
     @property
     def password(self):
         return self._password
