@@ -6,7 +6,6 @@ from blog.models import db
 from blog.models.article_tag import article_tag_table
 
 
-
 class ArticleModel(db.Model):
     id = Column(Integer, primary_key=True)
     author_id = Column(Integer, ForeignKey("author_model.id"))
@@ -19,3 +18,6 @@ class ArticleModel(db.Model):
     tags = relationship(
         "TagModel", secondary=article_tag_table, back_populates="articles"
     )
+
+    def __str__(self) -> str:
+        return str(self.title)

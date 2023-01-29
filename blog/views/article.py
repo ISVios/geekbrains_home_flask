@@ -1,5 +1,4 @@
 import logging
-
 from flask import Blueprint, current_app, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 from sqlalchemy import select
@@ -44,7 +43,6 @@ def create_article():
             selected_tags = TagModel.query.filter(TagModel.id.in_(form.tags.data))
             for tag in selected_tags:
                 article.tags.append(tag)
-
         db.session.add(article)
         if current_user.author:
             article.author = current_user.author

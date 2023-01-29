@@ -12,6 +12,7 @@ from blog.views.article import article_app
 from blog.views.auth import auth_app, login_manager
 from blog.views.author import author_app
 from blog.views.user import users_app
+from blog.admin import admin
 
 
 app: Flask = Flask(__name__)
@@ -28,6 +29,7 @@ app.config.from_object(f"blog.config.{cfg_name}")
 flask_bcrypt.init_app(app)
 db.init_app(app)
 login_manager.init_app(app)
+admin.init_app(app)
 
 # __MIGRATE__
 migrate = Migrate(app, db, compare_type=True)
@@ -73,8 +75,6 @@ def create_tag():
         db.session.add(tag)
     db.session.commit()
     logging.debug(f"{tag_list} created")
-
-
 
 
 # __BLUEPRINT__

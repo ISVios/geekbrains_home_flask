@@ -9,7 +9,6 @@ from wtforms import (
 )
 
 
-
 class CreateArticleForm(FlaskForm):
     title = StringField("Title", [validators.DataRequired()])
     body = TextAreaField("Body", [validators.DataRequired()])

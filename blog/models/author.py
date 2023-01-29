@@ -11,5 +11,9 @@ class AuthorModel(db.Model):
     user = relationship("UserModel", back_populates="author")
     article = relationship("ArticleModel", back_populates="author")
 
+    def __str__(self) -> str:
+        return str(self.user.username)
+
+
     def __repr__(self):
         return f"<author #{self.id} {self.user.username!r}>"
