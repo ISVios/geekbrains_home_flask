@@ -1,10 +1,12 @@
 import os
+import logging
 
 from flask import Flask, render_template
 from werkzeug.exceptions import BadRequest
 
 from flask_migrate import Migrate
 
+from blog.security import flask_bcrypt
 from blog.models import db, UserModel
 from blog.views.user import users_app
 from blog.views.article import article_app
@@ -12,17 +14,16 @@ from blog.views.auth import auth_app, login_manager
 
 app: Flask = Flask(__name__)
 
+# __Logger__
+command_logger = logging.getLogger("command")
+command_logger.setLevel("INFO")
+
 # __CONFIG__
-# app.config["SECRET_KEY"] = "^8wg6yjji4@2ur^41jq6g9hw%4q(77&jgc#zmzlh%v_959lf6)"
 cfg_name = os.environ.get("CONFIG_NAME") or "ProductionConfig"
 app.config.from_object(f"blog.config.{cfg_name}")
 
-# __DB__
-# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/blog.db"
-# app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-
 # __INIT__
+flask_bcrypt.init_app(app)
 db.init_app(app)
 login_manager.init_app(app)
 
@@ -30,30 +31,22 @@ login_manager.init_app(app)
 migrate = Migrate(app, db, compare_type=True)
 
 # __CMD__
-@app.cli.command("init-db")
-def init_db():
-    """Init empty db"""
-    db.create_all()
-    print("init db. Done.")
 
 
-@app.cli.command("full-db")
-def full_db():
+@app.cli.command("create-superuser")
+def create_superuser():
     """
-    Crete 3 users ->
-    user1
-    user2
-    root (superuser)
+    create superuser root:toor
+    password get from env ROOT_PASSWORD if env no found user 'toor'
     """
+    from blog.models import UserModel
+
     root = UserModel(username="root", is_staff=True)
-    user1 = UserModel(username="user1")
-    user2 = UserModel(username="user2")
-
+    root.password = os.environ.get("ROOT_PASSWORD") or "toor"
     db.session.add(root)
-    db.session.add(user1)
-    db.session.add(user2)
+
     db.session.commit()
-    print("Created ->\nuser1\t\nuser2\t\nroot\t(superuse)")
+    logging.info(f"create superuser: {root}")
 
 
 # __BLUEPRINT__
