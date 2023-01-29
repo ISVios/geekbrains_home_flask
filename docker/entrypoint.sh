@@ -9,4 +9,7 @@ if [[ ! -f .first_run ]] ; then
   touch .first_run
 fi
 
-poetry run python ./wsgi.py
+while true; do
+  poetry run python ./wsgi.py
+  sleep 1m
+done

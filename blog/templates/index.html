@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% block title %}
-  Index Page
+    Index Page
 {% endblock title %}
 {% block content %}
-  <h1>
-    Hello
-    {% if current_user.is_authenticated %}
-      {{ current_user.username }}
-    {% else %}
-      anon
-    {% endif %}
-  </h1>
+    <h1>
+        Hello
+        {% if current_user.is_authenticated %}
+            {{ current_user.username }}
+        {% else %}
+            anon
+        {% endif %}
+    </h1>
 {% endblock content %}
 {% block footer %}
 {% endblock footer %}
