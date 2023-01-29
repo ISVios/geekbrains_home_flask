@@ -6,6 +6,7 @@ from blog.models import db
 from blog.models.article_tag import article_tag_table
 
 
+
 class ArticleModel(db.Model):
     id = Column(Integer, primary_key=True)
     author_id = Column(Integer, ForeignKey("author_model.id"))

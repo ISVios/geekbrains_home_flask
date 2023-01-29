@@ -11,8 +11,8 @@ if [[ ! -f .first_run ]] ; then
 fi
 
 while true; do
+
   poetry run flask db upgrade
   poetry run python ./wsgi.py
   sleep 1m
 done
-

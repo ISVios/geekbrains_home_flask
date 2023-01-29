@@ -10,6 +10,7 @@ from werkzeug.exceptions import NotFound
 from blog.forms.article import CreateArticleForm
 from blog.models import db, ArticleModel, AuthorModel, TagModel
 
+
 article_app = Blueprint("article_app", __name__)
 
 
@@ -43,6 +44,7 @@ def create_article():
             selected_tags = TagModel.query.filter(TagModel.id.in_(form.tags.data))
             for tag in selected_tags:
                 article.tags.append(tag)
+
         db.session.add(article)
         if current_user.author:
             article.author = current_user.author

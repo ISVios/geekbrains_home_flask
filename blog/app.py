@@ -1,5 +1,6 @@
 import logging
 import os
+import logging
 
 from flask import Flask, render_template
 from flask_migrate import Migrate
@@ -11,6 +12,7 @@ from blog.views.article import article_app
 from blog.views.auth import auth_app, login_manager
 from blog.views.author import author_app
 from blog.views.user import users_app
+
 
 app: Flask = Flask(__name__)
 
@@ -71,6 +73,8 @@ def create_tag():
         db.session.add(tag)
     db.session.commit()
     logging.debug(f"{tag_list} created")
+
+
 
 
 # __BLUEPRINT__
