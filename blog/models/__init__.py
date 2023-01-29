@@ -3,4 +3,7 @@ from .user import UserModel
 from .author import AuthorModel
 from .article import ArticleModel
 
-__all__ = ["db", "UserModel", "AuthorModel", "ArticleModel"]
+from .tag import TagModel
+
+__all__ = ["db", "UserModel", "AuthorModel", "ArticleModel", "TagModel"]
+
