@@ -1,20 +1,21 @@
-import logging
+from flask_apispec import marshal_with, use_kwargs
+from flask_apispec.views import MethodResource
 from flask_restful import Resource
+from webargs import fields
+
+from blog.models import TagModel, db, tag
 from blog.schema import TagSchema
-from blog.models import db, TagModel, tag
 
 
-class TagList(Resource):
+@marshal_with(TagSchema(many=True))
+class TagList(MethodResource):
     def get(self):
         tags = TagModel.query.all()
-        ser = TagSchema().dump(tags, many=True)
-        return ser
+        return tags
 
 
-class TagDetail(Resource):
-    def get(self, id):
-        tag = TagModel.query.get(id)
-        if tag:
-            return TagSchema().dump(tag)
-        else:
-            return {}
+@marshal_with(TagSchema)
+class TagDetail(MethodResource):
+    @use_kwargs({"tag_id": fields.Integer()}, location="query")
+    def get(self, tag_id=0):
+        return TagModel.query.filter(TagModel.id == tag_id).one()

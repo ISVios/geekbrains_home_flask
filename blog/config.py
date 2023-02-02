@@ -1,6 +1,8 @@
 import os
 import logging
 
+from flask_apispec.extension import APISpec, MarshmallowPlugin
+
 # __GLOBAL_Logger_Level__
 logging.basicConfig(level=os.environ.get("LOGGER_LEVEL", None))
 
@@ -12,6 +14,18 @@ class BaseConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.environ.get("SECRET_KEY")
     WTF_CSRF_ENABLED = True
+    APP_API_VERSION = "v1"
+    OPENAPI_URL_PREFIX = "/api/swagger"
+    OPENAPI_SWAGGER_UI_PATH = "/"
+    OPENAPI_SWAGGER_UI_VERSION = "3.0.0"
+    APISPEC_SPEC = APISpec(
+        "blog.app",
+        APP_API_VERSION,
+        OPENAPI_SWAGGER_UI_VERSION,
+        [MarshmallowPlugin()],
+    )
+    APISPEC_SWAGGER_URL = OPENAPI_URL_PREFIX + "/json"
+    APISPEC_SWAGGER_UI_URL = OPENAPI_URL_PREFIX
 
 
 class DevConfig(BaseConfig):
