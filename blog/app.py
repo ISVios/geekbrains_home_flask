@@ -12,6 +12,7 @@ from blog.views.auth import auth_app, login_manager
 from blog.views.author import author_app
 from blog.views.user import users_app
 from blog.admin import admin
+from blog.api import ini_app
 
 app: Flask = Flask(__name__)
 
@@ -28,6 +29,7 @@ flask_bcrypt.init_app(app)
 db.init_app(app)
 login_manager.init_app(app)
 admin.init_app(app)
+api = ini_app(app)
 
 # __MIGRATE__
 migrate = Migrate(app, db, compare_type=True)
