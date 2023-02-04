@@ -3,6 +3,8 @@ import os
 
 from flask import Flask, render_template
 from flask_migrate import Migrate
+from flask_marshmallow import Marshmallow
+from flask_perm import Perm
 from werkzeug.exceptions import BadRequest
 
 from blog.models import UserModel, db
@@ -25,10 +27,12 @@ cfg_name = os.environ.get("CONFIG_NAME") or "ProductionConfig"
 app.config.from_object(f"blog.config.{cfg_name}")
 
 # __INIT__
+# perm = Perm(app)
 flask_bcrypt.init_app(app)
 db.init_app(app)
 login_manager.init_app(app)
 admin.init_app(app)
+ma = Marshmallow(app)
 api = init_app(app)
 docs = init_doc(app)
 

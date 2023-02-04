@@ -13,6 +13,6 @@ fi
 while true; do
   poetry run flask db upgrade
   poetry run python ./wsgi.py
-  sleep 1m
+  sleep 10s
 done
 

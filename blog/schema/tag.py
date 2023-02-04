@@ -1,13 +1,9 @@
-from marshmallow_jsonapi import Schema, fields
-from flask_apispec import marshal_with, use_kwargs
+# from marshmallow_jsonapi import Schema, fields
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 from blog.models.tag import TagModel
 
 
-class TagSchema(Schema):
+class TagSchema(SQLAlchemyAutoSchema):
     class Meta:
-        type_ = "tag"
-        fields = ("id", "name")
-
-    id = fields.Integer(as_string=True)
-    name = fields.String(allow_none=False, required=True)
+        model = TagModel
