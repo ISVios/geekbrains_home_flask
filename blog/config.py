@@ -16,7 +16,6 @@ class BaseConfig(object):
     WTF_CSRF_ENABLED = True
     APP_API_VERSION = "v1"
     OPENAPI_URL_PREFIX = "/api/swagger"
-    OPENAPI_SWAGGER_UI_PATH = "/"
     OPENAPI_SWAGGER_UI_VERSION = "2.0.0"
     APISPEC_SPEC = APISpec(
         "blog.app",
@@ -24,8 +23,8 @@ class BaseConfig(object):
         OPENAPI_SWAGGER_UI_VERSION,
         [MarshmallowPlugin()],
     )
-    APISPEC_SWAGGER_URL = OPENAPI_URL_PREFIX + "/json"
-    APISPEC_SWAGGER_UI_URL = OPENAPI_URL_PREFIX
+    APISPEC_SWAGGER_URL = None  # "/api/"
+    APISPEC_SWAGGER_UI_URL = None  # OPENAPI_URL_PREFIX
 
 
 class DevConfig(BaseConfig):

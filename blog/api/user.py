@@ -1,41 +1,54 @@
 import logging
-from flask_apispec import marshal_with, use_kwargs, doc
+from operator import pos
+
+from flask_apispec import doc, marshal_with, use_kwargs
 from flask_apispec.views import MethodResource
 from flask_login import login_required
+from flask_restful import abort
 from marshmallow import Schema, fields
 
 from blog.models import UserModel
+from blog.models.database import session
 from blog.schema import UserSchema
+from blog.api.database import (
+    del_method,
+    get_all,
+    get_by_id,
+    patch_method,
+    post_method,
+    need_authenticated,
+)
+from blog.schema.user import UserWithoutIdSchema
 
 
 @doc(tags=["User"])
-@marshal_with(UserSchema(many=True))
 class UserList(MethodResource):
-    @login_required
+    @marshal_with(UserSchema(many=True))
+    @need_authenticated
     def get(self):
-
-        return UserModel.query.all()
-
-    @use_kwargs(UserSchema)
-    def put(self):
-        return {}
-
-
-class IdScema(Schema):
-    id_p = fields.Integer(as_string=True, required=True)
+        return get_all(UserModel)
 
 
 @doc(tags=["User"])
-@marshal_with(UserSchema)
 class UserDetail(MethodResource):
-    @use_kwargs({"id": fields.Integer()}, location="url_field")
-    @login_required
+    @marshal_with(UserSchema)
+    @use_kwargs(UserWithoutIdSchema)
+    @need_authenticated
+    def post(self, **kwargs):
+        return post_method(UserModel, session, **kwargs)
+
+    @marshal_with(UserWithoutIdSchema)
+    @need_authenticated
     def get(self, id):
-        return UserModel.query.filter(UserModel.id == id).one()
+        return get_by_id(UserModel, id)
 
-    @use_kwargs(UserSchema, location=("json"))
-    def patch(self, id):
-        return {}
+    @marshal_with(UserSchema)
+    @use_kwargs(UserWithoutIdSchema)
+    @need_authenticated
+    def patch(self, id, **kwargs):
+        # Todo add new_password and new_passwod_dup (check, set)
+        return patch_method(UserModel, session, id, **kwargs)
 
-    def delete(self, *args, **kwargs):
-        return {}
+    @need_authenticated
+    def delete(self, id):
+        return del_method(UserModel, session, id)

@@ -1,20 +1,21 @@
 import logging
 import os
 
-from flask import Flask, render_template
-from flask_migrate import Migrate
+from flask import Flask, abort, render_template
+from flask_apispec import doc
+from flask_login import current_user
 from flask_marshmallow import Marshmallow
-from flask_perm import Perm
+from flask_migrate import Migrate
 from werkzeug.exceptions import BadRequest
 
+from blog.admin import admin
+from blog.api import init_api, init_doc
 from blog.models import UserModel, db
 from blog.security import flask_bcrypt
 from blog.views.article import article_app
 from blog.views.auth import auth_app, login_manager
 from blog.views.author import author_app
 from blog.views.user import users_app
-from blog.admin import admin
-from blog.api import init_app, init_doc
 
 app: Flask = Flask(__name__)
 
@@ -33,7 +34,7 @@ db.init_app(app)
 login_manager.init_app(app)
 admin.init_app(app)
 ma = Marshmallow(app)
-api = init_app(app)
+api = init_api(app)
 docs = init_doc(app)
 
 # __MIGRATE__
@@ -93,3 +94,17 @@ app.register_blueprint(author_app, url_prefix="/authors")
 @app.route("/")
 def index():
     return render_template("index.html")
+
+
+@app.route("/api/", endpoint="flask-apispec.swagger-json")
+def api_rote():
+    if not current_user.is_authenticated:
+        abort(401)
+    return docs.swagger_json()
+
+
+@app.route("/api/swagger/")
+def swagger():
+    if not current_user.is_authenticated:
+        abort(401)
+    return docs.swagger_ui()

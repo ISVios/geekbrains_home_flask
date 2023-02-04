@@ -12,3 +12,9 @@ class ArticleSchema(SQLAlchemyAutoSchema):
     tags = fields.Nested(TagSchema(many=True))
 
     author = fields.Nested(AuthorSchema)
+
+
+class ArticleWithoutIdSchema(ArticleSchema):
+    class Meta:
+        model = ArticleModel
+        only_dump = ("id",)
