@@ -7,11 +7,16 @@ from blog.models.article_tag import article_tag_table
 
 class TagModel(db.Model):
     id = Column(Integer, primary_key=True)
-    name = Column(String(32), nullable=False, default="", server_default="")
+    name = Column(
+        String(32), unique=True, nullable=False, default="", server_default=""
+    )
 
     articles = relationship(
         "ArticleModel", secondary=article_tag_table, back_populates="tags"
     )
 
     def __repr__(self) -> str:
+        return f"<Tag #{self.id} {self.name}>"
+
+    def __str__(self) -> str:
         return f"<Tag #{self.id} {self.name}>"

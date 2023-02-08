@@ -1,4 +1,6 @@
 from datetime import datetime
+import logging
+from marshmallow import fields
 from sqlalchemy import Column, DateTime, Integer, ForeignKey, String, Text, func
 from sqlalchemy.orm import relationship
 
@@ -18,6 +20,18 @@ class ArticleModel(db.Model):
     tags = relationship(
         "TagModel", secondary=article_tag_table, back_populates="articles"
     )
+
+    def update(self, obj: "ArticleModel"):
+        fields_ = ["author", "title", "body", "dt_created"]
+        self.dt_updated = datetime.now()
+
+        # logging.critical(f"{self.dt_created}|{obj.dt_created}")
+        for field in fields_:
+            atr = getattr(obj, field)
+            if not atr:
+                logging.critical(f"{atr}")
+                setattr(self, field, atr)
+        return self
 
     def __str__(self) -> str:
         return str(self.title)

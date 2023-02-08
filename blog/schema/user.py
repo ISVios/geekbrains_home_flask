@@ -21,5 +21,6 @@ class UserWithoutIdSchema(SQLAlchemyAutoSchema):
     username = auto_field(required=False)
 
     # ToDo: find how hide fields, or set empty value
+    # Try^: "partial" param
     # new_password = fields.String(required=False, load_default="", allow_none=True)
     # new_password_dup = fields.String(required=False, load_default="", allow_none=True)

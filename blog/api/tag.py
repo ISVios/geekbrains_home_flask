@@ -30,7 +30,7 @@ class TagList(MethodResource):
     #     schema = TagSchema(many=True)
 
     @marshal_with(TagSchema(many=True))
-    @need_authenticated
+    @need_authenticated()
     def get(self):
         return get_all(TagModel)
 
@@ -39,21 +39,21 @@ class TagList(MethodResource):
 class TagDetail(MethodResource):
     @marshal_with(TagSchema)
     @use_kwargs(TagWithoutIdSchema)
-    @need_authenticated
+    @need_authenticated()
     def post(self, **kwargs):
         return post_method(TagModel, session, **kwargs)
 
     @marshal_with(TagSchema)
-    @need_authenticated
+    @need_authenticated()
     def get(self, id):
         return get_by_id(TagModel, id)
 
-    @need_authenticated
+    @need_authenticated()
     def delete(self, id):
         return del_method(TagModel, session, id)
 
     @use_kwargs(TagWithoutIdSchema)
     @marshal_with(TagSchema)
-    @need_authenticated
+    @need_authenticated()
     def patch(self, id, **kwargs):
         return patch_method(TagModel, session, id, **kwargs)

@@ -1,16 +1,40 @@
 import logging
-from flask import Request, abort, session
+
+from flask import Request, abort
 from flask_login import current_user
-from flask_restful import HTTPException
 
 
-def need_authenticated(func):
-    def wrapper(*args, **kwargs):
-        if not current_user.is_authenticated:
-            abort(401)
-        return func(*args, **kwargs)
+def need_authenticated(only_staff=False, **kwargs__):
+    def decor(func):
+        def wrapper(*args, **kwargs):
+            if not current_user.is_authenticated:
+                abort(401)
+            if only_staff:
+                logging.info(f"{current_user} get staff_only {func}")
+                if not current_user.is_staff:
+                    logging.warn(f"{current_user} isn`t staff !")
+                    abort(401)
+                else:
+                    logging.info(f"{current_user} is staff. Ok.")
 
-    return wrapper
+            return func(*args, **kwargs)
+
+        return wrapper
+
+    return decor
+
+
+def need_authenticated_(only_staff=False, **kwargs__):
+    def decorator(function):
+        def wrapper(*args, **kwargs):
+            if not current_user.is_authenticated:
+                abort(401)
+            logging.critical(only_staff)
+            return function(*args, **kwargs)
+
+        return wrapper
+
+    return decorator
 
 
 # Todo: find how get Meta withoy self or how make one class
@@ -106,6 +130,7 @@ def patch_method(cls, session, id, **kwargs):
         abort(404, description="no found.")
     for key, value in kwargs.items():
         setattr(enty, key, value)
-        session.add(enty)
+        logging.critical(session.__dir__())
+        session.begin_nested(enty)
         session.commit()
     return enty, 201

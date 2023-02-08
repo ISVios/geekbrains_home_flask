@@ -6,11 +6,14 @@ from flask_apispec import doc
 from flask_login import current_user
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
+from marshmallow import pprint
 from werkzeug.exceptions import BadRequest
 
 from blog.admin import admin
 from blog.api import init_api, init_doc
 from blog.models import UserModel, db
+from blog.models.article import ArticleModel
+from blog.schema.article import ArticleSchema
 from blog.security import flask_bcrypt
 from blog.views.article import article_app
 from blog.views.auth import auth_app, login_manager
@@ -55,6 +58,13 @@ def create_superuser():
 
     db.session.commit()
     logging.info(f"create superuser: {root}")
+
+
+@app.cli.command("test")
+def test():
+    a = ArticleSchema()  # .load_fields("tags", {"id", 0, "name": "string"})
+    print(a)
+    pass
 
 
 @app.cli.command("create-tag")
